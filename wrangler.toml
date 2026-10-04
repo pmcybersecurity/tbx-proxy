@@ -5,7 +5,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "sharedfile"
 database_name = "tbx-proxy-db"
-database_id = "6b01b059-ac2c-4317-b781-fd7f77417a9d"
+database_id = "60010b59-ac2c-4317-b781-fd7f77417a9d"
 
 [observability]
 [observability.logs]
