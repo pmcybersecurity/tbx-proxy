@@ -418,10 +418,16 @@ export async function handleResolve(request, params, env) {
     pageUrl.searchParams.set('surl', surl);
 
     try {
-      pageRes = await fetchWithRetry(pageUrl.toString(), {
-        headers: buildHeaders(request, { Accept: 'text/html' }),
-        redirect: 'follow'
-      }, 1, 200, 8000);
+const upstreamHeaders = buildHeaders(request, { Accept: 'text/html' });
+
+if (!request.headers.get('Cookie') && env.NDUS) {
+  upstreamHeaders.Cookie = `ndus=${env.NDUS}`;
+}
+
+  pageRes = await fetchWithRetry(pageUrl.toString(), {
+    headers: upstreamHeaders,
+    redirect: 'follow'
+  }, 1, 200, 8000);
 
       if (pageRes && pageRes.ok) {
         html = await pageRes.text();
